@@ -16,8 +16,9 @@ namespace MassCultureLibrary.Tests
         public BookTests()
         {
             var bookRepository = new Mock<IBookRepository>();
-            var bookService = new Mock<IBookService>();
-            _bookService = bookService.Object;
+            //bookRepository.Setup().Returns();
+            var bookService = new BookService(bookRepository.Object);
+            _bookService = bookService;
             _book = new Book { Id = Guid.NewGuid(), Title = "1984", Author = "Джордж Оруэлл", Genre = "Антиутопия" };
         }
 
