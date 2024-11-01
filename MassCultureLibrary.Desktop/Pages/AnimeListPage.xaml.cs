@@ -28,7 +28,7 @@ namespace MassCultureLibrary.Desktop.Pages
         void RenewList()
         {
             AnimeListView.Items.Clear();
-            IAnimeService animeService;
+            //IAnimeService animeService = new AnimeService(new JsonAnimeStorage());
         }
     }
 }
