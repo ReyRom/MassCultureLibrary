@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MassCultureLibrary.Books
 {
-    public class JsonBookStorage
+    public class JsonBookStorage:IBookRepository
     {
         public string _filename = "book.json";
         public List<Book> _books;
@@ -32,6 +32,12 @@ namespace MassCultureLibrary.Books
             _books.RemoveAll(x => x.Id == id);
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
             await JsonSerializer.SerializeAsync<List<Book>>(file, _books);
+        }
+
+        public async Task<IEnumerable<Book>> GetByAuthorAsync(string author)
+        {
+            var result = _books.Where(x => x.Author == author).ToList();
+            return result;
         }
 
         public async Task<Book?> GetByIdAsync(Guid id)
