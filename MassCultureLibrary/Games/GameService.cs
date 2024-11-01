@@ -24,16 +24,16 @@ namespace MassCultureLibrary.Games
 
         public async Task DeleteGameAsync(Guid gameId)
         {
-            var game = await _gameRepository.GetByIdAsync(gameId);
+            var game = await _repository.GetByIdAsync(gameId);
             if (game == null)
                 throw new KeyNotFoundException($"Игра с Id: {gameId} не найдена. ");
 
-            await _gameRepository.DeleteAsync(gameId);
+            await _repository.DeleteAsync(gameId);
         }
 
         public async Task<Game?> GetGameByIdAsync(Guid gameId)
         {
-            return await _gameRepository.GetByIdAsync(gameId);
+            return await _repository.GetByIdAsync(gameId);
         }
 
         public Task<IEnumerable<Game>> GetGamesByPlatformAsync(string platform)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MassCultureLibrary.Animes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,18 +17,18 @@ using System.Windows.Shapes;
 namespace MassCultureLibrary.Desktop.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainPage.xaml
+    /// Логика взаимодействия для AnimeListPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class AnimeListPage : Page
     {
-        public MainPage()
+        public AnimeListPage()
         {
             InitializeComponent();
         }
-
-        private void AnimeButton_Click(object sender, RoutedEventArgs e)
+        void RenewList()
         {
-            MainWindow.Instance.MainFrame.Navigate(new AnimeListPage());
+            AnimeListView.Items.Clear();
+            IAnimeService animeService;
         }
     }
 }

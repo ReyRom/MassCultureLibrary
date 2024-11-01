@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace MassCultureLibrary.Desktop.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainPage.xaml
+    /// Логика взаимодействия для BookListPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class BookListPage : Page
     {
-        public MainPage()
+        public BookListPage()
         {
             InitializeComponent();
-        }
-
-        private void AnimeButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow.Instance.MainFrame.Navigate(new AnimeListPage());
         }
     }
 }

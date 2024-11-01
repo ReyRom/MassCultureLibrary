@@ -3,6 +3,7 @@ namespace MassCultureLibrary.Animes
 {
     public interface IAnimeService
     {
+        Task<IEnumerable<Anime>> GetAnimeAsync();
         Task<Anime> AddAnimeAsync(Anime anime);
         Task DeleteAnimeAsync(Guid animeId);
         Task<Anime?> GetAnimeByIdAsync(Guid animeId);

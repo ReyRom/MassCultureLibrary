@@ -33,6 +33,12 @@ namespace MassCultureLibrary.Animes
             await JsonSerializer.SerializeAsync<List<Anime>>(file, _animes);
         }
 
+        public async Task<IEnumerable<Anime>> GetAnimeAsync()
+        {
+
+            return _animes;
+        }
+
         public async Task<Anime?> GetByIdAsync(Guid id)
         {
             var result = _animes.Find(x => x.Id == id);
