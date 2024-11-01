@@ -15,11 +15,11 @@ namespace MassCultureLibrary.Tests
         private readonly Book _book;
         public BookTests()
         {
-            var bookRepository = new Mock<IBookRepository>();
-            //bookRepository.Setup().Returns();
-            var bookService = new BookService(bookRepository.Object);
+            var bookRepository = new JsonBookStorage();
+            var bookService = new BookService(bookRepository);
             _bookService = bookService;
             _book = new Book { Id = Guid.NewGuid(), Title = "1984", Author = "Джордж Оруэлл", Genre = "Антиутопия" };
+            bookRepository.AddAsync(_book).Wait();
         }
 
         [Fact]
@@ -65,6 +65,28 @@ namespace MassCultureLibrary.Tests
 
             var book = await _bookService.GetBookByIdAsync(bookId);
             book.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task GetBookByIdAsync_ReturnsCorrectBook()
+        {
+            var bookId = _book.Id;
+
+            var books = await _bookService.GetBookByIdAsync(bookId);
+
+            books.Should().NotBeNull();
+            books.Title.Should().Be("1984");
+        }
+        [Fact]
+        public async Task AddBook_WhenBookAlreadyExist()
+        {
+            var existingId = _book.Id;
+            var existingBook = new Book { Id = existingId, Title = "1984" };
+
+            var result = await _bookService.AddBookAsync(existingBook);
+
+            result.Should().NotBeNull();
+            result.Title.Should().Be("1984");
         }
     }
 
