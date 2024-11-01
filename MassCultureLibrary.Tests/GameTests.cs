@@ -71,6 +71,17 @@ namespace MassCultureLibrary.Tests
             var game = await gameService.GetGameByIdAsync(gameId);
             game.Should().BeNull();
         }
+
+        [Fact]
+        public async Task GetGamesByGenre_ShouldReturnGamesForGenre()
+        {
+            var genre = "RPG";
+
+            var games = await _gameService.GetGamesByGenreAsync(genre);
+
+            games.Should().NotBeEmpty();
+            games.All(g => g.Genre == genre).Should().BeTrue();
+        }
     }
 
 }

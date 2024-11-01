@@ -45,5 +45,10 @@ namespace MassCultureLibrary.Games
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<Game>> GetGamesByGenreAsync(string platform)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
