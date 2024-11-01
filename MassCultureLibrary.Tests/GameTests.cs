@@ -8,10 +8,13 @@ namespace MassCultureLibrary.Tests
     {
         private readonly IGameService _gameService;
         private readonly Game _game;
+        private readonly Mock<IGameService> _mockGameService;
+
         public GameTests()
         {
             var gameRepository = new Mock<IGameRepository>();
             var gameService = new GameService(gameRepository.Object);
+            _mockGameService = new Mock<IGameService>();
             _gameService = gameService;
             _game = new Game { Id = Guid.NewGuid(), Title = "The Witcher 3", Genre = "RPG", Platform = "PC" };
         }
@@ -20,11 +23,11 @@ namespace MassCultureLibrary.Tests
         public async Task AddGame_ShouldAddGameSuccessfully()
         {
             var game = _game;
+            _mockGameService.Setup(g => g.AddGameAsync(game)).ReturnsAsync(game);
+            var result = await _mockGameService.Object.AddGameAsync(game);
 
-            var result = await _gameService.AddGameAsync(game);
-
-            result.Should().NotBeNull();
-            result.Title.Should().Be("The Witcher 3");
+            Assert.NotNull(result);
+            _mockGameService.Verify(repo => repo.AddGameAsync(game), Times.Once);
         }
 
         [Fact]

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,18 +6,20 @@ using System.Threading.Tasks;
 
 namespace MassCultureLibrary.Games
 {
-    public class GameService:IGameService
+    public class GameService : IGameService
     {
-        IGameRepository _gameRepository;
+        IGameRepository _repository;
 
-        public GameService(IGameRepository gameRepository)
+        public GameService(IGameRepository repository)
         {
-            _gameRepository = gameRepository;
+            _repository = repository;
         }
 
-        public Task<Game> AddGameAsync(Game game)
+        public async Task<Game> AddGameAsync(Game game)
         {
-            throw new NotImplementedException();
+            if (game == null)
+                throw new ArgumentException("Game is null");
+            return await _repository.AddAsync(game);
         }
 
         public async Task DeleteGameAsync(Guid gameId)
@@ -28,7 +30,7 @@ namespace MassCultureLibrary.Games
 
             await _gameRepository.DeleteAsync(gameId);
         }
-        
+
         public async Task<Game?> GetGameByIdAsync(Guid gameId)
         {
             return await _gameRepository.GetByIdAsync(gameId);
