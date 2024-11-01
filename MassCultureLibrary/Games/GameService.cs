@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace MassCultureLibrary.Games
 {
     public class GameService : IGameService
@@ -41,9 +35,17 @@ namespace MassCultureLibrary.Games
             throw new NotImplementedException();
         }
 
-        public Task<Game> UpdateGameAsync(Guid gameId, GameUpdateDto updateInfo)
+        public async Task<Game> UpdateGameAsync(Guid gameId, GameUpdateDto updateInfo)
         {
-            throw new NotImplementedException();
+            var game = await _repository.GetByIdAsync(gameId);
+
+            if (game == null)
+                throw new GameNotFoundException(gameId);
+
+            game.Platform = updateInfo.Platform;
+
+            await _repository.UpdateAsync(game);
+            return game;
         }
 
         public Task<IEnumerable<Game>> GetGamesByGenreAsync(string platform)
