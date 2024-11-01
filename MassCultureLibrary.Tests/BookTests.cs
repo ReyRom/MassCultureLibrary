@@ -16,11 +16,10 @@ namespace MassCultureLibrary.Tests
         public BookTests()
         {
             var bookRepository = new Mock<IBookRepository>();
-            bookRepository.Setup().Returns();
-
+            //bookRepository.Setup().Returns();
             var bookService = new BookService(bookRepository.Object);
             _bookService = bookService;
-            var books = 
+            _book = new Book { Id = Guid.NewGuid(), Title = "1984", Author = "Джордж Оруэлл", Genre = "Антиутопия" };
         }
 
         [Fact]

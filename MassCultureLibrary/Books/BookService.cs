@@ -11,16 +11,16 @@ namespace MassCultureLibrary.Books
 {
     public class BookService : IBookService
     {
-        IBookRepository _bookRepository;
+        IBookRepository _repository;
 
-        public BookService(IBookRepository bookRepository)
+        public BookService(IBookRepository repository)
         {
-            _bookRepository = bookRepository;
+            _repository = repository;
         }
 
-        public Task<Book> AddBookAsync(Book book)
+        public async Task<Book> AddBookAsync(Book book)
         {
-            throw new NotImplementedException();
+            return await _repository.AddAsync(book);
         }
 
         public Task DeleteBookAsync(Guid bookId)
