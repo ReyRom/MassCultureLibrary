@@ -6,9 +6,10 @@ namespace MassCultureLibrary.Tests
 {
     public class GameTests
     {
-        private readonly IGameService _gameService;
+        private readonly GameService _gameService;
         private readonly Game _game;
         private readonly Mock<IGameService> _mockGameService;
+        private readonly Mock<IGameRepository> _mockGameRepository;
 
         public GameTests()
         {
@@ -28,6 +29,26 @@ namespace MassCultureLibrary.Tests
 
             Assert.NotNull(result);
             _mockGameService.Verify(repo => repo.AddGameAsync(game), Times.Once);
+        }
+
+        [Fact]
+        public async Task AddGame_ShouldReturnExceptionWhenTitleIsNull() // тест на попытку добавить игру без названия
+        {
+            var game = new Game { Id = Guid.NewGuid(), Genre = "aaa" };
+
+            Func<Task> action = async () => await _mockGameService.Object.AddGameAsync(game);
+            await action.Should().ThrowAsync<ArgumentNullException>().WithMessage("Game is null");
+        }
+
+        [Fact]
+        public async Task AddGame_ShouldReturnExceptionWhenGameIdExists() //тест на попытку добавить игру с существующим id
+        {
+            var game = new Game { Id = _game.Id, Genre = "RPG", Platform = "PC", Title = "aaaa" };
+           _mockGameRepository.Setup(repo => repo.AddAsync(game)).ThrowsAsync(new InvalidOperationException("Game with this Id exists"));
+
+            Func<Task> action = async() => await _gameService.AddGameAsync(game);
+
+            await action.Should().ThrowAsync<InvalidOperationException>().WithMessage("Game with this Id exists");
         }
 
         [Fact]
