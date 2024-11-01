@@ -1,4 +1,10 @@
-﻿namespace MassCultureLibrary.Games
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MassCultureLibrary.Games
 {
     public class GameService : IGameService
     {
@@ -16,14 +22,18 @@
             return await _repository.AddAsync(game);
         }
 
-        public Task DeleteGameAsync(Guid gameId)
+        public async Task DeleteGameAsync(Guid gameId)
         {
-            throw new NotImplementedException();
+            var game = await _gameRepository.GetByIdAsync(gameId);
+            if (game == null)
+                throw new KeyNotFoundException($"Игра с Id: {gameId} не найдена. ");
+
+            await _gameRepository.DeleteAsync(gameId);
         }
 
-        public Task<Game?> GetGameByIdAsync(Guid gameId)
+        public async Task<Game?> GetGameByIdAsync(Guid gameId)
         {
-            throw new NotImplementedException();
+            return await _gameRepository.GetByIdAsync(gameId);
         }
 
         public Task<IEnumerable<Game>> GetGamesByPlatformAsync(string platform)
