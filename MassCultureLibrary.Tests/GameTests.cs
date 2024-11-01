@@ -82,6 +82,17 @@ namespace MassCultureLibrary.Tests
             games.Should().NotBeEmpty();
             games.All(g => g.Genre == genre).Should().BeTrue();
         }
+
+        [Fact]
+        public async Task UpdateGame_WithNonExistentGameId_ShouldReturnNullOrThrow()
+        {
+            var nonExistentGameId = Guid.NewGuid();
+            var updateInfo = new GameUpdateDto { Platform = "Xbox" };
+
+            Func<Task> action = async () => await _gameService.UpdateGameAsync(nonExistentGameId, updateInfo);
+
+            await action.Should().ThrowAsync<GameNotFoundException>();
+        }
     }
 
 }
