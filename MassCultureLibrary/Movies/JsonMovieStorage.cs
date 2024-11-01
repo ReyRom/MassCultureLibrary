@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace MassCultureLibrary.Movies
@@ -12,17 +14,17 @@ namespace MassCultureLibrary.Movies
     {
         public string _filename = "movie.json";
         public List<Movie> _movies;
-
+        public JsonSerializerOptions _options = new JsonSerializerOptions() { Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = true }
         public JsonMovieStorage()
         {
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            _movies = JsonSerializer.Deserialize<List<Movie>>(file) ?? new List<Movie>();
+            _movies = JsonSerializer.Deserialize<List<Movie>>(file,_options) ?? new List<Movie>();
         }
         public async Task<Movie> AddAsync(Movie movie)
         {
             _movies.Add(movie);
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            await JsonSerializer.SerializeAsync<List<Movie>>(file, _movies);
+            await JsonSerializer.SerializeAsync<List<Movie>>(file, _movies, _options);
             return movie;
         }
 
@@ -30,7 +32,7 @@ namespace MassCultureLibrary.Movies
         {
             _movies.RemoveAll(x => x.Id == id);
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            await JsonSerializer.SerializeAsync<List<Movie>>(file, _movies);
+            await JsonSerializer.SerializeAsync<List<Movie>>(file, _movies, _options);
         }
 
         public async Task<Movie?> GetByIdAsync(Guid id)
@@ -46,7 +48,7 @@ namespace MassCultureLibrary.Movies
             result.ReleaseYear = movie.ReleaseYear;
             result.Genre = movie.Genre;
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            await JsonSerializer.SerializeAsync<List<Movie>>(file, _movies);
+            await JsonSerializer.SerializeAsync<List<Movie>>(file, _movies, _options);
         }
     }
 }

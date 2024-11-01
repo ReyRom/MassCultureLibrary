@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace MassCultureLibrary.Books
@@ -12,18 +14,18 @@ namespace MassCultureLibrary.Books
     {
         public string _filename = "book.json";
         public List<Book> _books;
-
+        public JsonSerializerOptions _options = new JsonSerializerOptions() { Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = true };
         public JsonBookStorage()
         {
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            _books = JsonSerializer.Deserialize<List<Book>>(file) ?? new List<Book>();
+            _books = JsonSerializer.Deserialize<List<Book>>(file, _options) ?? new List<Book>();
         }
 
         public async Task<Book> AddAsync(Book book)
         {
             _books.Add(book);
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            await JsonSerializer.SerializeAsync<List<Book>>(file, _books);
+            await JsonSerializer.SerializeAsync<List<Book>>(file, _books, _options);
             return book;
         }
 
@@ -31,7 +33,7 @@ namespace MassCultureLibrary.Books
         {
             _books.RemoveAll(x => x.Id == id);
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            await JsonSerializer.SerializeAsync<List<Book>>(file, _books);
+            await JsonSerializer.SerializeAsync<List<Book>>(file, _books, _options);
         }
 
         public async Task<IEnumerable<Book>> GetByAuthorAsync(string author)
@@ -53,7 +55,7 @@ namespace MassCultureLibrary.Books
             result.Author = book.Author;
             result.Genre = book.Genre;
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            await JsonSerializer.SerializeAsync<List<Book>>(file, _books);
+            await JsonSerializer.SerializeAsync<List<Book>>(file, _books, _options);
         }
     }
 }

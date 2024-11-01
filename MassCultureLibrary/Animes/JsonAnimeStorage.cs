@@ -4,25 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace MassCultureLibrary.Animes
 {
     internal class JsonAnimeStorage : IAnimeRepository
     {
+        public JsonSerializerOptions _options = new JsonSerializerOptions() { Encoder= JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = true };
         public string _filename = "anime.json";
         public List<Anime> _animes;
 
         public JsonAnimeStorage()
         {
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            _animes = JsonSerializer.Deserialize<List<Anime>>(file) ?? new List<Anime>();
+            _animes = JsonSerializer.Deserialize<List<Anime>>(file, _options) ?? new List<Anime>();
         }
 
         public async Task<Anime> AddAsync(Anime anime)
         {
             _animes.Add(anime);
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            await JsonSerializer.SerializeAsync<List<Anime>>(file, _animes);
+            await JsonSerializer.SerializeAsync<List<Anime>>(file, _animes, _options);
             return anime;
         }
 
@@ -30,7 +33,7 @@ namespace MassCultureLibrary.Animes
         {
             _animes.RemoveAll(x => x.Id == id);
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            await JsonSerializer.SerializeAsync<List<Anime>>(file, _animes);
+            await JsonSerializer.SerializeAsync<List<Anime>>(file, _animes, _options);
         }
 
         public async Task<IEnumerable<Anime>> GetAnimeAsync()
@@ -52,7 +55,7 @@ namespace MassCultureLibrary.Animes
             result.Status = anime.Status;
             result.Genre = anime.Genre;
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
-            await JsonSerializer.SerializeAsync<List<Anime>>(file, _animes);
+            await JsonSerializer.SerializeAsync<List<Anime>>(file, _animes, _options);
         }
     }
 }
