@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentAssertions;
+using MassCultureLibrary.Books;
+using Moq;
 
 namespace MassCultureLibrary.Books
 {
-    public class BookService:IBookService
+    public class BookService : IBookService
     {
         IBookRepository _repository;
 
@@ -30,9 +33,9 @@ namespace MassCultureLibrary.Books
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Book>> GetBooksByAuthorAsync(string author)
+        public async Task<IEnumerable<Book>> GetBooksByAuthorAsync(string author)
         {
-            throw new NotImplementedException();
+            return await _repository.GetByAuthorAsync(author);
         }
 
         public Task<Book> UpdateBookAsync(Guid bookId, BookUpdateDto updateInfo)
