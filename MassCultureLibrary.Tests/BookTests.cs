@@ -83,10 +83,7 @@ namespace MassCultureLibrary.Tests
             var existingId = _book.Id;
             var existingBook = new Book { Id = existingId, Title = "1984" };
 
-            var result = await _bookService.AddBookAsync(existingBook);
-
-            result.Should().NotBeNull();
-            result.Title.Should().Be("1984");
+            await Assert.ThrowsAsync<ArgumentException>(async()=>await _bookService.AddBookAsync(existingBook));
         }
     }
 
