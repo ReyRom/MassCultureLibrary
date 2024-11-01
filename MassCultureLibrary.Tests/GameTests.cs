@@ -62,7 +62,9 @@ namespace MassCultureLibrary.Tests
             var gameService = new GameService(gameRepository.Object);
 
             await gameService.DeleteGameAsync(gameId);
+
             gameRepository.Setup(repo => repo.GetByIdAsync(gameId)).ReturnsAsync((Game)null);
+
             var game = await gameService.GetGameByIdAsync(gameId);
             game.Should().BeNull();
         }
