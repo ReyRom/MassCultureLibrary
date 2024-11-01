@@ -9,7 +9,7 @@ using System.Text.Unicode;
 
 namespace MassCultureLibrary.Animes
 {
-    internal class JsonAnimeStorage : IAnimeRepository
+    public class JsonAnimeStorage : IAnimeRepository
     {
         public JsonSerializerOptions _options = new JsonSerializerOptions() { Encoder= JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = true };
         public string _filename = "anime.json";
@@ -17,6 +17,13 @@ namespace MassCultureLibrary.Animes
 
         public JsonAnimeStorage()
         {
+            if (!File.Exists(_filename))
+            {
+                using FileStream f = new FileStream(_filename, FileMode.OpenOrCreate);
+                var values = new List<Anime>();
+                values.Add(new Anime { Id = Guid.NewGuid(), Title = "Наруто", Genre = "Экшен", Status = "Завершено" });
+                JsonSerializer.SerializeAsync<List<Anime>>(f, values, _options);
+            }
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
             _animes = JsonSerializer.Deserialize<List<Anime>>(file, _options) ?? new List<Anime>();
         }

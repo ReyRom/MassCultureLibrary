@@ -24,11 +24,17 @@ namespace MassCultureLibrary.Desktop.Pages
         public AnimeListPage()
         {
             InitializeComponent();
+            RenewList();
         }
-        void RenewList()
+        async void RenewList()
         {
             AnimeListView.Items.Clear();
-            //IAnimeService animeService = new AnimeService(new JsonAnimeStorage());
+            IAnimeService animeService = new AnimeService(new JsonAnimeStorage());
+            var items = await animeService.GetAnimeAsync();
+            foreach (var item in items)
+            {
+                AnimeListView.Items.Add(item);
+            }
         }
     }
 }

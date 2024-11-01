@@ -14,7 +14,7 @@ namespace MassCultureLibrary.Movies
     {
         public string _filename = "movie.json";
         public List<Movie> _movies;
-        public JsonSerializerOptions _options = new JsonSerializerOptions() { Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = true }
+        public JsonSerializerOptions _options = new JsonSerializerOptions() { Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = true };
         public JsonMovieStorage()
         {
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);
