@@ -11,8 +11,8 @@ namespace MassCultureLibrary.Tests
         public GameTests()
         {
             var gameRepository = new Mock<IGameRepository>();
-            var gameService = new Mock<IGameService>();
-            _gameService = gameService.Object;
+            var gameService = new GameService(gameRepository.Object);
+            _gameService = gameService;
             _game = new Game { Id = Guid.NewGuid(), Title = "The Witcher 3", Genre = "RPG", Platform = "PC" };
         }
 
@@ -55,9 +55,15 @@ namespace MassCultureLibrary.Tests
         {
             var gameId = _game.Id;
 
-            await _gameService.DeleteGameAsync(gameId);
+            var gameRepository = new Mock<IGameRepository>();
+            gameRepository.Setup(repo => repo.GetByIdAsync(gameId)).ReturnsAsync(_game);
+            gameRepository.Setup(repo => repo.DeleteAsync(gameId)).Returns(Task.CompletedTask);
 
-            var game = await _gameService.GetGameByIdAsync(gameId);
+            var gameService = new GameService(gameRepository.Object);
+
+            await gameService.DeleteGameAsync(gameId);
+            gameRepository.Setup(repo => repo.GetByIdAsync(gameId)).ReturnsAsync((Game)null);
+            var game = await gameService.GetGameByIdAsync(gameId);
             game.Should().BeNull();
         }
     }
