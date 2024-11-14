@@ -36,9 +36,9 @@ namespace MassCultureLibrary.Books
             await JsonSerializer.SerializeAsync<List<Book>>(file, _books, _options);
         }
 
-        public async Task<IEnumerable<Book>> GetByAuthorAsync(string author)
+        public async Task<IEnumerable<Book>> GetAllAsync()
         {
-            var result = _books.Where(x => x.Author == author).ToList();
+            var result = _books.ToList();
             return result;
         }
 

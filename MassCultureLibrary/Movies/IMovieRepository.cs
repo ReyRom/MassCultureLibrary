@@ -10,6 +10,7 @@ namespace MassCultureLibrary.Movies
     {
         Task<Movie> AddAsync(Movie movie);
         Task<Movie?> GetByIdAsync(Guid id);
+        Task<IEnumerable<Movie>> GetAllAsync();
         Task UpdateAsync(Movie movie);
         Task DeleteAsync(Guid id);
     }

@@ -43,7 +43,7 @@ namespace MassCultureLibrary.Animes
             await JsonSerializer.SerializeAsync<List<Anime>>(file, _animes, _options);
         }
 
-        public async Task<IEnumerable<Anime>> GetAnimeAsync()
+        public async Task<IEnumerable<Anime>> GetAllAsync()
         {
 
             return _animes;

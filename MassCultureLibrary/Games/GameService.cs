@@ -11,8 +11,6 @@ namespace MassCultureLibrary.Games
 
         public async Task<Game> AddGameAsync(Game game)
         {
-            //if (game == null)
-            //    throw new ArgumentException("Game is null");
             return await _repository.AddAsync(game);
         }
 

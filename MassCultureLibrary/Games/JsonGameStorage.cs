@@ -37,6 +37,12 @@ namespace MassCultureLibrary.Games
             return result;
         }
 
+        public async Task<IEnumerable<Game>> GetAllAsync()
+        {
+            var result = _games.ToList();
+            return result;
+        }
+
         public async Task UpdateAsync(Game game)
         {
             var result = _games.Find(x => x.Id == game.Id);

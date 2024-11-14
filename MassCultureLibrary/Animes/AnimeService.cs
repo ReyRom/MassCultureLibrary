@@ -27,7 +27,7 @@ namespace MassCultureLibrary.Animes
 
         public async Task<IEnumerable<Anime>> GetAnimeAsync()
         {
-            return await _repository.GetAnimeAsync();
+            return await _repository.GetAllAsync();
         }
 
         public Task<Anime?> GetAnimeByIdAsync(Guid animeId)

@@ -35,6 +35,12 @@ namespace MassCultureLibrary.Movies
             await JsonSerializer.SerializeAsync<List<Movie>>(file, _movies, _options);
         }
 
+        public async Task<IEnumerable<Movie>> GetAllAsync()
+        {
+            var result = _movies.ToList();
+            return result;
+        }
+
         public async Task<Movie?> GetByIdAsync(Guid id)
         {
             var result = _movies.Find(x => x.Id == id);
