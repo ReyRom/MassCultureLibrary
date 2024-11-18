@@ -4,13 +4,13 @@ using Moq;
 
 namespace MassCultureLibrary.Tests
 {
-    public class AnimeMangaTests
+    public class AnimeTests
     {
         private IAnimeService _animeService;
         private readonly IAnimeRepository _animeRepository;
         private readonly Mock<IAnimeRepository> _mockAnimeRepository;
         private readonly Anime _anime;
-        public AnimeMangaTests()
+        public AnimeTests()
         {
             _animeRepository = new JsonAnimeStorage();
             _mockAnimeRepository = new Mock<IAnimeRepository>();

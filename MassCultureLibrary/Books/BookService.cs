@@ -35,7 +35,8 @@ namespace MassCultureLibrary.Books
 
         public async Task<IEnumerable<Book>> GetBooksByAuthorAsync(string author)
         {
-            return await _repository.GetByAuthorAsync(author);
+            throw new NotImplementedException();
+            //return await _repository.GetByAuthorAsync(author);
         }
 
         public Task<Book> UpdateBookAsync(Guid bookId, BookUpdateDto updateInfo)
