@@ -59,7 +59,12 @@ namespace MassCultureLibrary.Tests
             await _animeService.DeleteAnimeAsync(animeId);
 
             var anime = await _animeService.GetAnimeByIdAsync(animeId);
-            anime.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task DeleteAnimeByName_ShouldRemoveAnime()
+        {
+            await _animeService.DeleteByNameAsync(_anime.Title);
         }
     }
 

@@ -15,19 +15,28 @@ namespace MassCultureLibrary.Animes
             _repository = repository;
         }
 
-        public Task<Anime> AddAnimeAsync(Anime anime) 
-            => _repository.AddAsync(anime);
+        public async Task<Anime> AddAnimeAsync(Anime anime) 
+            => await _repository.AddAsync(anime);
 
-        public Task DeleteAnimeAsync(Guid animeId) 
-            => _repository.DeleteAsync(animeId);
+        public async Task DeleteAnimeAsync(Guid animeId) 
+            => await _repository.DeleteAsync(animeId);
+
+        public async Task DeleteAnimeByName(string name)
+            => await _repository.DeleteByNameAsync(name);
+
+        public async Task UpdateAnimeNameAsymc(string name)
+            => await _repository.UpdateAnimeNameAsync(name);
+
+        public async Task AddAnimeForLosers(Anime anime)
+            => await _repository.AddAnimeForLosersAsync(anime);
 
         public async Task<IEnumerable<Anime>> GetAnimeAsync()
         {
             return await _repository.GetAllAsync();
         }
 
-        public Task<Anime?> GetAnimeByIdAsync(Guid animeId) 
-            => _repository.GetByIdAsync(animeId);
+        public async Task<Anime?> GetAnimeByIdAsync(Guid animeId) 
+            => await _repository.GetByIdAsync(animeId);
 
         public Task<IEnumerable<Anime>> GetAnimeByStatusAsync(string status)
         {
@@ -35,6 +44,21 @@ namespace MassCultureLibrary.Animes
         }
 
         public Task<Anime> UpdateAnimeAsync(Guid animeId, AnimeUpdateDto updateInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> DeleteByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> UpdateAnimeNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddAnimeForLosersAsync(Anime anime)
         {
             throw new NotImplementedException();
         }

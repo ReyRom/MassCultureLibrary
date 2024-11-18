@@ -28,6 +28,11 @@ namespace MassCultureLibrary.Animes
             _animes = JsonSerializer.Deserialize<List<Anime>>(file, _options) ?? new List<Anime>();
         }
 
+        public Task AddAnimeForLosersAsync(Anime anime)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Anime> AddAsync(Anime anime)
         {
             _animes.Add(anime);
@@ -43,6 +48,16 @@ namespace MassCultureLibrary.Animes
             await JsonSerializer.SerializeAsync<List<Anime>>(file, _animes, _options);
         }
 
+        public Task DeleteByNameAsync(Anime anime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> DeleteByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<Anime>> GetAllAsync()
         {
 
@@ -53,6 +68,16 @@ namespace MassCultureLibrary.Animes
         {
             var result = _animes.Find(x => x.Id == id);
             return result;
+        }
+
+        public Task UpdateAnimeNameAsync(Anime anime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> UpdateAnimeNameAsync(string name)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task UpdateAsync(Anime anime)
