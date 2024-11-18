@@ -15,25 +15,19 @@ namespace MassCultureLibrary.Animes
             _repository = repository;
         }
 
-        public Task<Anime> AddAnimeAsync(Anime anime)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<Anime> AddAnimeAsync(Anime anime) 
+            => _repository.AddAsync(anime);
 
-        public Task DeleteAnimeAsync(Guid animeId)
-        {
-            throw new NotImplementedException();
-        }
+        public Task DeleteAnimeAsync(Guid animeId) 
+            => _repository.DeleteAsync(animeId);
 
         public async Task<IEnumerable<Anime>> GetAnimeAsync()
         {
             return await _repository.GetAllAsync();
         }
 
-        public Task<Anime?> GetAnimeByIdAsync(Guid animeId)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<Anime?> GetAnimeByIdAsync(Guid animeId) 
+            => _repository.GetByIdAsync(animeId);
 
         public Task<IEnumerable<Anime>> GetAnimeByStatusAsync(string status)
         {
