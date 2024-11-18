@@ -6,13 +6,15 @@ namespace MassCultureLibrary.Tests
 {
     public class AnimeMangaTests
     {
-        private readonly IAnimeService _animeService;
+        private IAnimeService _animeService;
+        private readonly IAnimeRepository _animeRepository;
+        private readonly Mock<IAnimeRepository> _mockAnimeRepository;
         private readonly Anime _anime;
         public AnimeMangaTests()
         {
-            var animeRepository = new Mock<IAnimeRepository>();
-            var animeService = new Mock<IAnimeService>();
-            _animeService = animeService.Object;
+            _animeRepository = new JsonAnimeStorage();
+            _mockAnimeRepository = new Mock<IAnimeRepository>();
+            _animeService = new AnimeService(_animeRepository);
             _anime = new Anime {Id = Guid.NewGuid(), Title = "Наруто", Genre = "Экшен", Status = "Завершено" };
         }
 
@@ -20,7 +22,6 @@ namespace MassCultureLibrary.Tests
         public async Task AddAnime_ShouldAddAnimeCorrectly()
         {
             var anime = _anime;
-
             var result = await _animeService.AddAnimeAsync(anime);
 
             result.Should().NotBeNull();

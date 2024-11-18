@@ -5,13 +5,15 @@ namespace MassCultureLibrary.Tests
 {
     public class MovieTests
     {
-        private readonly IMovieService _movieService;
+        private IMovieService _movieService;
+        private readonly IMovieRepository _movieRepository;
+        private readonly Mock<IMovieRepository> _mockMovieRepository;
         private readonly Movie _movie;
         public MovieTests()
         {
-            var movieRepository = new Mock<IMovieRepository>();
-            var movieService = new Mock<IMovieService>();
-            _movieService = movieService.Object;
+            _movieRepository = new JsonMovieStorage();
+            _mockMovieRepository = new Mock<IMovieRepository>();
+            _movieService = new MovieService(_movieRepository);
             _movie = new Movie { Id = Guid.NewGuid(), Title = "Матрица", Genre = "Фантастика", ReleaseYear = 1999 };
         }
 

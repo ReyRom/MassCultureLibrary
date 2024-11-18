@@ -6,15 +6,16 @@ namespace MassCultureLibrary.Tests
 {
     public class BookTests
     {
-        private readonly IBookService _bookService;
+        private  IBookService _bookService;
+        private readonly IBookRepository _bookRepository;
+        private readonly Mock<IBookRepository> _mockBookRepository;
         private readonly Book _book;
         public BookTests()
         {
-            var bookRepository = new JsonBookStorage();
-            var bookService = new BookService(bookRepository);
-            _bookService = bookService;
+            _bookRepository = new JsonBookStorage();
+            _mockBookRepository = new Mock<IBookRepository>();
+            _bookService = new BookService(_bookRepository);
             _book = new Book { Id = Guid.NewGuid(), Title = "1984", Author = "Джордж Оруэлл", Genre = "Антиутопия" };
-            bookRepository.AddAsync(_book).Wait();
         }
 
         [Fact]

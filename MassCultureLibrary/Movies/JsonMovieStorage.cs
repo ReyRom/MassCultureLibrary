@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MassCultureLibrary.Movies
 {
-    internal class JsonMovieStorage : IMovieRepository
+    public class JsonMovieStorage : IMovieRepository
     {
         public string _filename = "movie.json";
         public List<Movie> _movies;
