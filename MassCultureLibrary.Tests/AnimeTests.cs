@@ -15,7 +15,7 @@ namespace MassCultureLibrary.Tests
             _animeRepository = new JsonAnimeStorage();
             _mockAnimeRepository = new Mock<IAnimeRepository>();
             _animeService = new AnimeService(_animeRepository);
-            _anime = new Anime {Id = Guid.NewGuid(), Title = "Наруто", Genre = "Экшен", Status = "Завершено" };
+            _anime = new Anime { Id = Guid.NewGuid(), Title = "Наруто", Genre = "Экшен", Status = "Завершено" };
         }
 
         [Fact]
@@ -42,8 +42,8 @@ namespace MassCultureLibrary.Tests
         [Fact]
         public async Task UpdateAnime_ShouldUpdateAnimeStatus()
         {
-            var animeId = _anime.Id;
             var updateInfo = new AnimeUpdateDto { Status = "Онгоинг" };
+            var animeId = _anime.Id;
 
             var updatedAnime = await _animeService.UpdateAnimeAsync(animeId, updateInfo);
 
@@ -60,6 +60,38 @@ namespace MassCultureLibrary.Tests
 
             var anime = await _animeService.GetAnimeByIdAsync(animeId);
             anime.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task GetAnimeIdbyName_ShouldReturnCorrectId()
+        {
+            var name = _anime.Title;
+
+            var id = await _animeService.GetAnimeIdbyNameAsync(name);
+            id.Should().NotBeEmpty();
+            id.Should().Be(_anime.Id);
+        }
+
+        [Fact]
+        public async Task GetAnimeNameByIdAsync_ShouldReturnCorrectName()
+        {
+            var animeId = _anime.Id;
+
+            var title = await _animeService.GetAnimeTitleById(animeId);
+            title.Should().NotBeEmpty();
+            title.Should().Be(_anime.Title);
+        }
+
+        [Fact]
+        public async Task GetAnimeByGenreAsync_ShouldReturnListWithCurrentAnime()
+        {
+            string currentGenre = _anime.Genre;
+            var animes = await _animeService.GetAnimeByGenreAsync(currentGenre);
+            animes.Should().NotBeEmpty();
+            foreach (var anime in animes)
+            {
+                anime.Should().Be(currentGenre);
+            }
         }
     }
 

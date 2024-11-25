@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MassCultureLibrary.Books;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,10 @@ namespace MassCultureLibrary.Movies
             _movieRepository = movieRepository;
         }
 
-        public Task<Movie> AddMovieAsync(Movie movie)
+        public async Task<Movie> AddMovieAsync(Movie movie)
         {
-            throw new NotImplementedException();
+
+            return await _movieRepository.AddAsync(movie);
         }
 
         public Task DeleteMovieAsync(Guid movieId)
