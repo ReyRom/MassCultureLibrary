@@ -11,8 +11,16 @@
     <Grid>
         <StackPanel>
             <Button Click="AnimeButton_Click">
-                Anime
+                Добавить аниме
             </Button>
+            <Label Content="Введите название аниме"/>
+            <TextBox x:Name="AnimeNameTextBox"/>
+            <Label Content="Введите дату выхода аниме"/>
+            <TextBox x:Name="AnimeReleaseDateTextBox"/>
+            <Label Content="Введите количество серий в аниме"/>
+            <TextBox x:Name="AnimeSeriesTextBox"/>
+            <Label Content="Введите состояние выхода аниме (онгоинг/закончен/в данный момент не выходит)"/>
+            <ComboBox x:Name=""/>
         </StackPanel>
     </Grid>
 </Page>

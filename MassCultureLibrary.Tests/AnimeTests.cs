@@ -73,17 +73,23 @@ namespace MassCultureLibrary.Tests
             updatedAnime.Status.Should().Be("Онгоинг");
         }
 
-
         [Fact]
         public async Task DeleteAnimeByName_ShouldRemoveAnime()
         {
-            await _animeService.DeleteByNameAsync(_anime.Title);
+            var anime = await _animeService.GetAnimeByIdAsync(_anime.Id);
+            var animeName = anime.Title;
+
+            await _animeService.DeleteByNameAsync(animeName);
         }
 
         [Fact]
         public async Task AddAnimeForLosersAsync_ShouldAddAnimeForLosers()
         {
-            await _animeService.AddAnimeForLosersAsync(_anime);
+            var anime = _anime;
+            var result = await _animeService.AddAnimeAsync(anime);
+
+            result.Should().NotBeNull();
+            result.Title.Should().Be("Токийский гуль");
         }
     }
 
