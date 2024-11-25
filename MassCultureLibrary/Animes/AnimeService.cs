@@ -15,14 +15,14 @@ namespace MassCultureLibrary.Animes
             _repository = repository;
         }
 
-        public Task<Anime> AddAnimeAsync(Anime anime)
+        public async Task<Anime> AddAnimeAsync(Anime anime)
         {
-            throw new NotImplementedException();
+            return await _repository.AddAsync(anime);
         }
 
-        public Task DeleteAnimeAsync(Guid animeId)
+        public async Task DeleteAnimeAsync(Guid animeId)
         {
-            throw new NotImplementedException();
+            await _repository.DeleteAsync(animeId);
         }
 
         public async Task<IEnumerable<Anime>> GetAnimeAsync()
@@ -30,9 +30,9 @@ namespace MassCultureLibrary.Animes
             return await _repository.GetAllAsync();
         }
 
-        public Task<Anime?> GetAnimeByIdAsync(Guid animeId)
+        public async Task<Anime?> GetAnimeByIdAsync(Guid animeId)
         {
-            throw new NotImplementedException();
+            return await _repository.GetByIdAsync(animeId);
         }
 
         public Task<IEnumerable<Anime>> GetAnimeByStatusAsync(string status)
@@ -41,6 +41,15 @@ namespace MassCultureLibrary.Animes
         }
 
         public Task<Anime> UpdateAnimeAsync(Guid animeId, AnimeUpdateDto updateInfo)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<Anime> GetAnimeByTitleAsync(string title)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Anime>> GetAnimesByGenreAsync(string genre)
         {
             throw new NotImplementedException();
         }
