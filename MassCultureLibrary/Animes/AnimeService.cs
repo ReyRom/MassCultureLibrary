@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MassCultureLibrary.Games;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,21 @@ namespace MassCultureLibrary.Animes
             _repository = repository;
         }
 
-        public Task<Anime> AddAnimeAsync(Anime anime)
+        public async Task<Anime> AddAnimeAsync(Anime anime) // реализация добавления объекта
         {
-            throw new NotImplementedException();
+            return await _repository.AddAsync(anime);
         }
 
-        public Task DeleteAnimeAsync(Guid animeId)
+        public async Task DeleteAnimeByIdAsync(Guid animeId) // реализация удаления по Id
+        {
+            var anime = _repository.GetByIdAsync(animeId);
+            if (anime == null)
+                throw new KeyNotFoundException($"Аниме с Id: {animeId} не найдена. ");
+
+            await _repository.DeleteAsync(animeId);
+        }
+
+        public Task DeleteAnimeAsync(Anime anime) // реализация удаления всего объекта
         {
             throw new NotImplementedException();
         }
@@ -30,7 +40,17 @@ namespace MassCultureLibrary.Animes
             return await _repository.GetAllAsync();
         }
 
-        public Task<Anime?> GetAnimeByIdAsync(Guid animeId)
+        public Task<Anime?> GetAnimeByIdAsync(Guid animeId) 
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Anime?> GetAnimeByTitleAsync(string title) // получение аниме по названию
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Anime>> GetAnimeByGenreAsync(string genre) // получение списка аниме по выбранному жанру
         {
             throw new NotImplementedException();
         }

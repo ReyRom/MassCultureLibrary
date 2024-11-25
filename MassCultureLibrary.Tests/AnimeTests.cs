@@ -29,6 +29,28 @@ namespace MassCultureLibrary.Tests
         }
 
         [Fact]
+        public async Task GetAnimeByTitle_ShouldReturnAnimeWithCorrectStatus()
+        {
+            var title = "Наруто";
+
+            var anime = await _animeService.GetAnimeByTitleAsync(title);
+
+            anime.Should().NotBeNull();
+            anime.Title.Should().Be("Наруто");
+        }
+
+        [Fact]
+        public async Task GetAnimeByGenre_ShouldReturnAnimeWithCorrectStatus()
+        {
+            var genre = "Экшен";
+
+            var animes = await _animeService.GetAnimeByGenreAsync(genre);
+
+            animes.Should().NotBeEmpty();
+            animes.All(a => a.Genre == genre).Should().BeTrue();
+        }
+
+        [Fact]
         public async Task GetAnimeByStatus_ShouldReturnAnimeWithCorrectStatus()
         {
             var status = "Онгоинг";
@@ -52,14 +74,25 @@ namespace MassCultureLibrary.Tests
         }
 
         [Fact]
-        public async Task DeleteAnime_ShouldRemoveAnime()
+        public async Task DeleteAnimeById_ShouldRemoveAnime()
         {
             var animeId = _anime.Id;
 
-            await _animeService.DeleteAnimeAsync(animeId);
+            await _animeService.DeleteAnimeByIdAsync(animeId);
 
             var anime = await _animeService.GetAnimeByIdAsync(animeId);
             anime.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task DeleteAnime_ShouldRemoveAnime()
+        {
+            Anime anime = new() { Id = Guid.NewGuid(), Title = "Наруто", Genre = "Экшен", Status = "Завершено" };
+
+            await _animeService.DeleteAnimeAsync(anime);
+
+            var deletedAnime = await _animeService.GetAnimeByIdAsync(anime.Id);
+            deletedAnime.Should().BeNull();
         }
     }
 
