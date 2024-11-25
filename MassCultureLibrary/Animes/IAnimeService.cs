@@ -11,8 +11,9 @@
         Task<IEnumerable<Anime>> GetAnimeByStatusAsync(string status);
         Task<IEnumerable<Anime>> GetAnimeByGenreAsync(string genre);
         Task<Anime> UpdateAnimeAsync(Guid animeId, AnimeUpdateDto updateInfo);
-        Task<string> GetAnimeTitleById(Guid animeId);
+        Task<Anime> GetAnimeByTitleAsync(string title);
+        Task<string> GetAnimeTitleByIdAsync(Guid animeId);
         Task<IEnumerable<Anime>> GetAnimeByGenreAsync(string genre);
-        Task<Guid> GetAnimeIdbyNameAsync(string name);
+        Task<Guid> GetAnimeIdByNameAsync(string name);
     }
 }

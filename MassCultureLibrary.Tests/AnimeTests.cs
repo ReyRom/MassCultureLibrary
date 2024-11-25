@@ -85,6 +85,27 @@ namespace MassCultureLibrary.Tests
         }
 
         [Fact]
+        public async Task GetAnimeByTitle_ShouldReturnCorrectAnime()
+        {
+            var animeTitle = _anime.Title;
+
+            var anime = await _animeService.GetAnimeByTitleAsync(animeTitle);
+
+            anime.Should().NotBeNull();
+            anime.Title.Should().Be(animeTitle);
+        }
+
+        [Fact]
+        public async Task GetAnimesByGenre_ShouldReturnCorrectAnimes()
+        {
+            var animeGenre = _anime.Genre;
+
+            var animes = await _animeService.GetAnimesByGenreAsync(animeGenre);
+
+            animes.Should().NotBeNull();
+            foreach (var anime in animes)
+                anime.Genre.Should().Be(animeGenre);
+        }
         public async Task GetAnimeIdbyName_ShouldReturnCorrectId()
         {
             var name = _anime.Title;
