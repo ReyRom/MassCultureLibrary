@@ -90,7 +90,7 @@ namespace MassCultureLibrary.Tests
             animes.Should().NotBeEmpty();
             foreach (var anime in animes)
             {
-                anime.Should().Be(currentGenre);
+                anime.Genre.Should().Be(currentGenre);
             }
         }
     }
