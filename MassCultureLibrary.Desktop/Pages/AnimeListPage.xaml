@@ -8,9 +8,26 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AnimeListPage">
 
-    <Grid>
-        <ListView x:Name="AnimeListView">
-            
-        </ListView>
-    </Grid>
+    <StackPanel>
+        <WrapPanel>
+            <Button Name="SaveButton" Content="Save" Margin="1,1,1,1" Click="SaveButton_Click"/>
+            <Button Name="DeleteButton" Content="ANNIGILATE" Margin="1,1,1,1" Click="DeleteButton_Click"/>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="Title" Width="50"/>
+            <TextBox Name="TitleTextBox" Width="50"/>
+            <Label Content="Genre" Width="50"/>
+            <TextBox Name="GenreTextBox" Width="50"/>
+            <Label Content="Status" Width="50"/>
+            <TextBox Name="StatusTextBox" Width="50"/>
+        </WrapPanel>
+        <DataGrid Name="AnimesDataGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Title"  Binding="{Binding Title}"/>
+                <DataGridTextColumn Header="Genre"  Binding="{Binding Genre}"/>
+                <DataGridTextColumn Header="Status"  Binding="{Binding Status}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
 </Page>
