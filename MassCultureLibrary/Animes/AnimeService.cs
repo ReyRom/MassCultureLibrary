@@ -1,3 +1,4 @@
+
 ﻿using MassCultureLibrary.Games;
 using System;
 using System.Collections.Generic;
@@ -6,20 +7,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MassCultureLibrary.Animes
+
 {
     public class AnimeService : IAnimeService
     {
         IAnimeRepository _repository;
-
         public AnimeService(IAnimeRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<Anime> AddAnimeAsync(Anime anime) // реализация добавления объекта
-        {
-            return await _repository.AddAsync(anime);
-        }
+        public async Task<Anime> AddAnimeAsync(Anime anime) => await _repository.AddAsync(anime);
+
+        public async Task<IEnumerable<Anime>> GetAnimeAsync() => await _repository.GetAllAsync();
+
+        public async Task<Anime?> GetAnimeByIdAsync(Guid animeId) => await _repository.GetByIdAsync(animeId);
+
+        public async Task<IEnumerable<Anime>> GetAnimeByStatusAsync(string status)
 
         public async Task DeleteAnimeByIdAsync(Guid animeId) // реализация удаления по Id
         {
@@ -35,11 +39,16 @@ namespace MassCultureLibrary.Animes
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Anime>> GetAnimeAsync()
+        public Task<Guid> GetAnimeIdbyNameAsync(string name)
         {
-            return await _repository.GetAllAsync();
+            throw new NotImplementedException();
         }
 
+        public Task<string> GetAnimeTitleById(Guid animeId)
+        {
+            throw new NotImplementedException();
+        }
+        
         public Task<Anime?> GetAnimeByIdAsync(Guid animeId) 
         {
             throw new NotImplementedException();
@@ -55,14 +64,17 @@ namespace MassCultureLibrary.Animes
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Anime>> GetAnimeByStatusAsync(string status)
+        public Task<IEnumerable<Anime>> GetAnimeByGenreAsync(string status)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Anime> UpdateAnimeAsync(Guid animeId, AnimeUpdateDto updateInfo)
+        public async Task<Anime> UpdateAnimeAsync(Guid animeId, AnimeUpdateDto updateInfo)
         {
-            throw new NotImplementedException();
+            var anime = await _repository.GetByIdAsync(animeId);
+            anime.Status = updateInfo.Status;
+            await _repository.UpdateAsync(anime);
+            return anime;
         }
     }
 }
