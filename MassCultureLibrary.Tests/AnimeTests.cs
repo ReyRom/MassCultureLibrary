@@ -40,7 +40,7 @@ namespace MassCultureLibrary.Tests
         }
 
         [Fact]
-        public async Task UpdateAnime_ShouldUpdateAnimeStatus()
+        public async Task DeleteAnime_ShouldDeleteAnimeStatus()
         {
             var animeId = _anime.Id;
             var updateInfo = new AnimeUpdateDto { Status = "Онгоинг" };
@@ -62,9 +62,28 @@ namespace MassCultureLibrary.Tests
         }
 
         [Fact]
+        public async Task UpdateAnime_ShouldUpdateAnimeStatus()
+        {
+            var animeId = _anime.Id;
+            var updateInfo = new AnimeUpdateDto { Status = "Онгоинг" };
+
+            var updatedAnime = await _animeService.UpdateAnimeAsync(animeId, updateInfo);
+
+            updatedAnime.Should().NotBeNull();
+            updatedAnime.Status.Should().Be("Онгоинг");
+        }
+
+
+        [Fact]
         public async Task DeleteAnimeByName_ShouldRemoveAnime()
         {
             await _animeService.DeleteByNameAsync(_anime.Title);
+        }
+
+        [Fact]
+        public async Task AddAnimeForLosersAsync_ShouldAddAnimeForLosers()
+        {
+            await _animeService.AddAnimeForLosersAsync(_anime);
         }
     }
 
