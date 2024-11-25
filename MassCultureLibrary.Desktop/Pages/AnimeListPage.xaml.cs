@@ -21,6 +21,8 @@ namespace MassCultureLibrary.Desktop.Pages
     /// </summary>
     public partial class AnimeListPage : Page
     {
+        IAnimeService _animeService = new AnimeService(new JsonAnimeStorage());
+
         public AnimeListPage()
         {
             InitializeComponent();
@@ -28,13 +30,37 @@ namespace MassCultureLibrary.Desktop.Pages
         }
         async void RenewList()
         {
-            AnimeListView.Items.Clear();
-            IAnimeService animeService = new AnimeService(new JsonAnimeStorage());
-            var items = await animeService.GetAnimeAsync();
+            AnimesDataGrid.Items.Clear();
+            var items = await _animeService.GetAnimeAsync();
             foreach (var item in items)
             {
-                AnimeListView.Items.Add(item);
+                AnimesDataGrid.Items.Add(item);
             }
+        }
+
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Anime anime = new()
+            {
+                Id = Guid.NewGuid(),
+                Title = TitleTextBox.Text,
+                Genre = GenreTextBox.Text,
+                Status = StatusTextBox.Text
+            };
+            await _animeService.AddAnimeAsync(anime);
+            RenewList();
+        }
+
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Anime? anime = AnimesDataGrid.SelectedItem as Anime;
+            if(anime==null)
+            {
+                MessageBox.Show("Не выбран элемент", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            await _animeService.DeleteAnimeAsync(anime.Id);
+            RenewList();
         }
     }
 }
