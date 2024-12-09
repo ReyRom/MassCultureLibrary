@@ -4,16 +4,13 @@
     {
         Task<IEnumerable<Anime>> GetAnimeAsync();
         Task<Anime> AddAnimeAsync(Anime anime);
-        Task DeleteAnimeByIdAsync(Guid animeId);
-        Task DeleteAnimeAsync(Anime anime);
+        Task DeleteAnimeAsync(Guid animeId);
         Task<Anime?> GetAnimeByIdAsync(Guid animeId);
-        Task<Anime?> GetAnimeByTitleAsync(string title);
         Task<IEnumerable<Anime>> GetAnimeByStatusAsync(string status);
-        Task<IEnumerable<Anime>> GetAnimeByGenreAsync(string genre);
         Task<Anime> UpdateAnimeAsync(Guid animeId, AnimeUpdateDto updateInfo);
-        Task<Anime> GetAnimeByTitleAsync(string title);
-        Task<string> GetAnimeTitleByIdAsync(Guid animeId);
-        Task<IEnumerable<Anime>> GetAnimeByGenreAsync(string genre);
-        Task<Guid> GetAnimeIdByNameAsync(string name);
+
+        Task<string> DeleteByNameAsync(string name);
+        Task<string> UpdateAnimeNameAsync(string name);
+        Task AddAnimeForLosersAsync(Anime anime);
     }
 }
