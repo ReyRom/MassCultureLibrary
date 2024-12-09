@@ -21,7 +21,12 @@ namespace MassCultureLibrary.Animes
             {
                 using FileStream f = new FileStream(_filename, FileMode.OpenOrCreate);
                 var values = new List<Anime>();
-                values.Add(new Anime { Id = Guid.NewGuid(), Title = "Наруто", Genre = "Экшен", Status = "Завершено" });
+                values.Add(new Anime 
+                { 
+                    Id = Guid.NewGuid(),
+                    Title = "Наруто", 
+                    Genre = "Экшен",
+                    Status = "Завершено" });
                 JsonSerializer.SerializeAsync<List<Anime>>(f, values, _options);
             }
             using FileStream file = new FileStream(_filename, FileMode.OpenOrCreate);

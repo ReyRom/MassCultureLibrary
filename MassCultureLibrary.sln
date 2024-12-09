@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassCultureLibrary.Tests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassCultureLibrary.Desktop", "MassCultureLibrary.Desktop\MassCultureLibrary.Desktop.csproj", "{B2D240D1-98FC-4E76-850B-57539865BF0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LW12", "LW12\LW12.csproj", "{CB33291F-E69A-4714-A54E-C1A87B2F786F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{B2D240D1-98FC-4E76-850B-57539865BF0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2D240D1-98FC-4E76-850B-57539865BF0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2D240D1-98FC-4E76-850B-57539865BF0E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CB33291F-E69A-4714-A54E-C1A87B2F786F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CB33291F-E69A-4714-A54E-C1A87B2F786F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CB33291F-E69A-4714-A54E-C1A87B2F786F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CB33291F-E69A-4714-A54E-C1A87B2F786F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

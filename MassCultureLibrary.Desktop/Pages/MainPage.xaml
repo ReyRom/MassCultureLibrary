@@ -9,10 +9,32 @@
       Title="MainPage">
 
     <Grid>
-        <StackPanel>
-            <Button Click="AnimeButton_Click">
-                Anime
-            </Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="AnimeDataGrid" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                <DataGridTextColumn Header="Genre" Binding="{Binding Genre}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Column="1">
+            <Label Content="Имя:"/>
+            <TextBox x:Name="AnimeNameTextBox" />
+            
+            <Label Content="Жанр: "/>
+            <TextBox x:Name="AnimeGenreTextBox" />
+            
+            <Label Content="Статус: "/>
+            <TextBox x:Name="AnimeStatusTextBox" />
+
+            <Button x:Name="AddButton" Content="Add" Click="AddButton_Click"/>
+            <Button x:Name="DeleteButton" Content="Delete" Click="DeleteButton_Click"/>
         </StackPanel>
     </Grid>
 </Page>
